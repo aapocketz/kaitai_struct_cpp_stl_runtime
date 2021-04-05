@@ -3,6 +3,8 @@ cmake_minimum_required (VERSION 3.3)
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
+option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
+
 find_package(ZLIB)
 
 find_path(ICONV_INCLUDE_DIRS iconv.h)
@@ -26,7 +28,7 @@ set (SOURCES
 
 set(STRING_ENCODING_TYPE "ICONV" CACHE STRING "Set the way strings have to be encoded (ICONV|NONE|...)")
 
-add_library (${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
+add_library (${PROJECT_NAME} ${HEADERS} ${SOURCES})
 set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "kaitai/kaitaistream.h;kaitai/kaitaistruct.h")
 
 if (ZLIB_FOUND)
